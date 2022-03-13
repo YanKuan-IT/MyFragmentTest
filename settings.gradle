@@ -1,0 +1,4 @@
+rootProject.name = "MyFragmentTest"
+include ':app'
+include ':mytest1'
+include ':mytest2'
