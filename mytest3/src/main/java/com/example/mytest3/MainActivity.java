@@ -1,4 +1,4 @@
-package com.example.mytest2;
+package com.example.mytest3;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,7 +9,6 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private MyFragment1 fragment1;
     private MyFragment2 fragment2;
-    private MyFragment3 fragment3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,15 +18,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Button add_fragment_bt = findViewById(R.id.add_fragment_bt);
         Button replace_fragment2_bt = findViewById(R.id.replace_fragment2_bt);
-        Button remove_fragment1_bt = findViewById(R.id.remove_fragment1_bt);
 
         add_fragment_bt.setOnClickListener(this);
         replace_fragment2_bt.setOnClickListener(this);
-        remove_fragment1_bt.setOnClickListener(this);
 
         fragment1 = new MyFragment1();
         fragment2 = new MyFragment2();
-        fragment3 = new MyFragment3();
     }
 
     @Override
@@ -35,17 +31,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.add_fragment_bt:
                 if (!fragment1.isAdded()) {
-                    getSupportFragmentManager().beginTransaction().add(R.id.fragment_container1, fragment1).commit();
-                }
-                if (!fragment2.isAdded()) {
-                    getSupportFragmentManager().beginTransaction().add(R.id.fragment_container2, fragment2).commit();
+                    getSupportFragmentManager().beginTransaction()
+                            .add(R.id.fragment_container1, fragment1)
+                            .addToBackStack(null)
+                            .commit();
                 }
                 break;
             case R.id.replace_fragment2_bt:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container2, fragment3).commit();
-                break;
-            case R.id.remove_fragment1_bt:
-                getSupportFragmentManager().beginTransaction().remove(fragment1).commit();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container1, fragment2)
+                        .addToBackStack(null)
+                        .commit();
                 break;
             default:
                 break;
